@@ -107,6 +107,8 @@ class Configuracion:
     #----Confirmar configuraciones----#
     def confirmar(self):
         self.ventanaConfigurar.destroy()
+     
+     
         
 class sudoku(tk.Frame):                  #se crea la clase padre
     #----Método Constructor----#
@@ -114,7 +116,7 @@ class sudoku(tk.Frame):                  #se crea la clase padre
         super().__init__(master)
         self.master =  master   #esta variable almacena la ventana principal
         self.master.title('Sudoku')
-        self.master.geometry('600x600')
+        self.master.geometry('700x700')
         self.master.resizable(False,False) 
 
         # PARTIDAS DE JUEGO #
@@ -198,7 +200,7 @@ class sudoku(tk.Frame):                  #se crea la clase padre
         self.lblTitulo = tk.Label(self.master,text='Sudoku',fg='black',bg='gray',font=('System',25)).pack(fill=tk.X)
         # Se crea el menú de juego llamando cada uno al método correspondiente #
         self.barMenu = tk.Menu(self.master)
-        self.barMenu.add_command(label='Jugar')
+        self.barMenu.add_command(label='Jugar',         command=self.juego)
         self.barMenu.add_command(label='Configuracion', command=self.configurar)
         self.barMenu.add_command(label='Ayuda',         command=self.ayuda)
         self.barMenu.add_command(label='Acerca De',     command=self.acercaDe)
@@ -208,6 +210,223 @@ class sudoku(tk.Frame):                  #se crea la clase padre
     def configurar(self):
         configurar = Configuracion(self.master)                 #en configuración se llama a la clase hija "Configuracion" enviando la ventana principal como parámetro
         self.configuraciones = configurar.configuraciones()
+    
+    def juego(self):
+        # CONFIGURACION DEL NIVEL DE JUEGO #
+        self.lblNivelJuego = tk.Label(self.master,text='Nivel: Fácil', font=('System',16),width=50)
+        self.lblNivelJuego.place(x=100,y=50)
+
+        self.lblNombre = tk.Label(self.master,text='Nombre del jugador',font=('System',12))
+        self.lblNombre.place(x=15,y=75)
+        self.txtNombre = tk.Entry(self.master,width=50,font=('System',12))
+        self.txtNombre.place(x=185,y=80)
+        # BOTONES DE LA INTERACCIÓN CON EL JUEGO #
+        self.btnIniciarJuego = tk.Button(self.master,text='Iniciar juego',bg='red',font=('System',10))
+        self.btnIniciarJuego.place(x=5,y=550)
+
+        # Estos botones se mantienen inhabilitados hasta que se inicie una partida
+        self.btnBorrarJugada = tk.Button(self.master,text='Rehacer jugada',bg='gray',font=('System',10),state=tk.DISABLED)
+        self.btnBorrarJugada.place(x=265,y=600)
+        self.btnBorrarJugada = tk.Button(self.master,text='Deshacer jugada',bg='blue',font=('System',10),state=tk.DISABLED)
+        self.btnBorrarJugada.place(x=265,y=550)
+        self.btnTerminarJuego = tk.Button(self.master,text='Terminar juego',bg='green',font=('System',10),state=tk.DISABLED)
+        self.btnTerminarJuego.place( x=125,y=550)
+        self.btnBorraJuego = tk.Button(self.master,text=' Borrar juego ',bg='white',font=('System',10),state=tk.DISABLED)
+        self.btnBorraJuego.place(x=405,y=550)
+        self.btnTopLevel = tk.Button(self.master,text='    Top 10    ',bg='yellow',font=('System',10))
+        self.btnTopLevel.place(x=535,y=550)
+        
+        self.btnGuardarJuego = tk.Button(self.master,text='Guardar juego',font=('System',10),state=tk.DISABLED)
+        self.btnGuardarJuego.place(x=405,y=600)
+        self.btnCargarJuego = tk.Button(self.master,text='Cargar juego',font=('System',10),state=tk.DISABLED)
+        self.btnCargarJuego.place(x=535,y=600)
+    
+        #-------------------------------------------------------- CUADRICULA --------------------------------------------------------#
+        self.btnPos00 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos00))
+        self.btnPos00.place(x=20,y=110)
+        self.btnPos01 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos01))
+        self.btnPos01.place(x=70,y=110)
+        self.btnPos02 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos02))
+        self.btnPos02.place(x=120,y=110)
+        self.btnPos03 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos03))
+        self.btnPos03.place(x=170,y=110)
+        self.btnPos04 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos04))
+        self.btnPos04.place(x=220,y=110)
+        self.btnPos05 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos05))
+        self.btnPos05.place(x=270,y=110)
+        self.btnPos06 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos06))
+        self.btnPos06.place(x=320,y=110)
+        self.btnPos07 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos07))
+        self.btnPos07.place(x=370,y=110)
+        self.btnPos08 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos08))
+        self.btnPos08.place(x=420,y=110)
+        #------------------------------------------------------------------------------------------------------------------------------#
+        self.btnPos10 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos10))
+        self.btnPos10.place(x=20,y=155)
+        self.btnPos11 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos11))
+        self.btnPos11.place(x=70,y=155)
+        self.btnPos12 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos12))
+        self.btnPos12.place(x=120,y=155)
+        self.btnPos13 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos13))
+        self.btnPos13.place(x=170,y=155)
+        self.btnPos14 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos14))
+        self.btnPos14.place(x=220,y=155)
+        self.btnPos15 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos15))
+        self.btnPos15.place(x=270,y=155)
+        self.btnPos16 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos16))
+        self.btnPos16.place(x=320,y=155)
+        self.btnPos17 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos17))
+        self.btnPos17.place(x=370,y=155)
+        self.btnPos18 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos18))
+        self.btnPos18.place(x=420,y=155)
+        #------------------------------------------------------------------------------------------------------------------------------#
+        self.btnPos20 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos20))
+        self.btnPos20.place(x=20,y=200)
+        self.btnPos21 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos21))
+        self.btnPos21.place(x=70,y=200)
+        self.btnPos22 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos22))
+        self.btnPos22.place(x=120,y=200)
+        self.btnPos23 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos23))
+        self.btnPos23.place(x=170,y=200)
+        self.btnPos24 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos24))
+        self.btnPos24.place(x=220,y=200)
+        self.btnPos25 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos25))
+        self.btnPos25.place(x=270,y=200)
+        self.btnPos26 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos26))
+        self.btnPos26.place(x=320,y=200)
+        self.btnPos27 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos27))
+        self.btnPos27.place(x=370,y=200)
+        self.btnPos28 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos28))
+        self.btnPos28.place(x=420,y=200)
+        #------------------------------------------------------------------------------------------------------------------------------#
+        self.btnPos30 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos30))
+        self.btnPos30.place(x=20,y=245)
+        self.btnPos31 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos31))
+        self.btnPos31.place(x=70,y=245)
+        self.btnPos32 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos32))
+        self.btnPos32.place(x=120,y=245)
+        self.btnPos33 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos33))
+        self.btnPos33.place(x=170,y=245)
+        self.btnPos34 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos34))
+        self.btnPos34.place(x=220,y=245)
+        self.btnPos35 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos35))
+        self.btnPos35.place(x=270,y=245)
+        self.btnPos36 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos36))
+        self.btnPos36.place(x=320,y=245)
+        self.btnPos37 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos37))
+        self.btnPos37.place(x=370,y=245)
+        self.btnPos38 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos38))
+        self.btnPos38.place(x=420,y=245)
+        #------------------------------------------------------------------------------------------------------------------------------#
+        self.btnPos40 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos40))
+        self.btnPos40.place(x=20,y=290)
+        self.btnPos41 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos41))
+        self.btnPos41.place(x=70,y=290)
+        self.btnPos42 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos42))
+        self.btnPos42.place(x=120,y=290)
+        self.btnPos43 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos43))
+        self.btnPos43.place(x=170,y=290)
+        self.btnPos44 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos44))
+        self.btnPos44.place(x=220,y=290)
+        self.btnPos45 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos45))
+        self.btnPos45.place(x=270,y=290)
+        self.btnPos46 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos46))
+        self.btnPos46.place(x=320,y=290)
+        self.btnPos47 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos47))
+        self.btnPos47.place(x=370,y=290)
+        self.btnPos48 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos48))
+        self.btnPos48.place(x=420,y=290)
+        #------------------------------------------------------------------------------------------------------------------------------#
+        self.btnPos50 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos50))
+        self.btnPos50.place(x=20,y=335)
+        self.btnPos51 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos51))
+        self.btnPos51.place(x=70,y=335)
+        self.btnPos52 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos52))
+        self.btnPos52.place(x=120,y=335)
+        self.btnPos53 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos53))
+        self.btnPos53.place(x=170,y=335)
+        self.btnPos54 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos54))
+        self.btnPos54.place(x=220,y=335)
+        self.btnPos55 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos55))
+        self.btnPos55.place(x=270,y=335)
+        self.btnPos56 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos56))
+        self.btnPos56.place(x=320,y=335)
+        self.btnPos57 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos57))
+        self.btnPos57.place(x=370,y=335)
+        self.btnPos58 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos58))
+        self.btnPos58.place(x=420,y=335)
+        #------------------------------------------------------------------------------------------------------------------------------#
+        self.btnPos60 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos60))
+        self.btnPos60.place(x=20,y=380)
+        self.btnPos61 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos61))
+        self.btnPos61.place(x=70,y=380)
+        self.btnPos62 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos62))
+        self.btnPos62.place(x=120,y=380)
+        self.btnPos63 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos63))
+        self.btnPos63.place(x=170,y=380)
+        self.btnPos64 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos64))
+        self.btnPos64.place(x=220,y=380)
+        self.btnPos65 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos65))
+        self.btnPos65.place(x=270,y=380)
+        self.btnPos66 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos66))
+        self.btnPos66.place(x=320,y=380)
+        self.btnPos67 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos67))
+        self.btnPos67.place(x=370,y=380)
+        self.btnPos68 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos68))
+        self.btnPos68.place(x=420,y=380)
+        #------------------------------------------------------------------------------------------------------------------------------#
+        self.btnPos70 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos70))
+        self.btnPos70.place(x=20,y=425)
+        self.btnPos71 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos71))
+        self.btnPos71.place(x=70,y=425)
+        self.btnPos72 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos72))
+        self.btnPos72.place(x=120,y=425)
+        self.btnPos73 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos73))
+        self.btnPos73.place(x=170,y=425)
+        self.btnPos74 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos74))
+        self.btnPos74.place(x=220,y=425)
+        self.btnPos75 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos75))
+        self.btnPos75.place(x=270,y=425)
+        self.btnPos76 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos76))
+        self.btnPos76.place(x=320,y=425)
+        self.btnPos77 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos77))
+        self.btnPos77.place(x=370,y=425)
+        self.btnPos78 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos78))
+        self.btnPos78.place(x=420,y=425)
+        #------------------------------------------------------------------------------------------------------------------------------#
+        self.btnPos80 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos80))
+        self.btnPos80.place(x=20,y=470)
+        self.btnPos81 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos81))
+        self.btnPos81.place(x=70,y=470)
+        self.btnPos82 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos82))
+        self.btnPos82.place(x=120,y=470)
+        self.btnPos83 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos83))
+        self.btnPos83.place(x=170,y=470)
+        self.btnPos84 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos84))
+        self.btnPos84.place(x=220,y=470)
+        self.btnPos85 = tk.Button(self.master,bg='gray',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos85))
+        self.btnPos85.place(x=270,y=470)
+        self.btnPos86 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos86))
+        self.btnPos86.place(x=320,y=470)
+        self.btnPos87 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos87))
+        self.btnPos87.place(x=370,y=470)
+        self.btnPos88 = tk.Button(self.master,bg='white',font=('System'),width=5,height=2,command=lambda:self.cuadricula(self.btnPos88))
+        self.btnPos88.place(x=420,y=470)
+        #------------------------------------------------------------------------------------------------------------------------------#
+        self.casillas = [(self.btnPos00,self.btnPos01,self.btnPos02,self.btnPos03,self.btnPos04,self.btnPos05,self.btnPos06,self.btnPos07,self.btnPos08,
+                          self.btnPos10,self.btnPos11,self.btnPos12,self.btnPos13,self.btnPos14,self.btnPos15,self.btnPos16,self.btnPos17,self.btnPos18,
+                          self.btnPos20,self.btnPos21,self.btnPos22,self.btnPos23,self.btnPos24,self.btnPos25,self.btnPos26,self.btnPos27,self.btnPos28,
+                          self.btnPos30,self.btnPos31,self.btnPos32,self.btnPos33,self.btnPos34,self.btnPos35,self.btnPos36,self.btnPos37,self.btnPos38,
+                          self.btnPos40,self.btnPos41,self.btnPos42,self.btnPos43,self.btnPos44,self.btnPos45,self.btnPos46,self.btnPos47,self.btnPos48,
+                          self.btnPos50,self.btnPos51,self.btnPos52,self.btnPos53,self.btnPos54,self.btnPos55,self.btnPos56,self.btnPos57,self.btnPos58,
+                          self.btnPos60,self.btnPos61,self.btnPos62,self.btnPos63,self.btnPos64,self.btnPos65,self.btnPos66,self.btnPos67,self.btnPos68,
+                          self.btnPos70,self.btnPos71,self.btnPos72,self.btnPos73,self.btnPos74,self.btnPos75,self.btnPos76,self.btnPos77,self.btnPos78,
+                          self.btnPos80,self.btnPos81,self.btnPos82,self.btnPos83,self.btnPos84,self.btnPos85,self.btnPos86,self.btnPos87,self.btnPos88,)]
+        
+        
+        
+        
+        
     #----Ayuda----#
     def ayuda(self):
         # Esta opción la usaremos para que el usuario pueda ver el Manual de Usuario directamente en la computadora (despliega el pdf  respectivo). 
@@ -232,7 +451,6 @@ class sudoku(tk.Frame):                  #se crea la clase padre
         respuesta= messagebox.askyesno("Cuidado", "¿Quiere salir del programa?")
         if respuesta==True:
             self.master.destroy()
-
 #----PROGRAMA PRINCIPAL----#
 def main():
     app = tk.Tk()
