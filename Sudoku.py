@@ -74,7 +74,7 @@ class Configuracion:
         self.hourLabel =    tk.Label(self.ventanaConfigurar,text='Horas',   width=8,font=('System',12)).place(x=285,y=110)
         self.minuteLabel =  tk.Label(self.ventanaConfigurar,text='Minutos', width=8,font=('System',12)).place(x=337,y=110)
         self.secondLabel =  tk.Label(self.ventanaConfigurar,text='Segundos',width=8,font=('System',12)).place(x=399,y=110)
-        self.hourEntry=     tk.Entry(self.ventanaConfigurar,                width=3, font=("System",18,""),
+        self.hourEntry=     tk.Entry(self.ventanaConfigurar,                width=3,font=("System",18,""),
                             textvariable=self.hour)
         
         self.hourEntry.place(x=300,y=135)
@@ -107,8 +107,6 @@ class Configuracion:
     #----Confirmar configuraciones----#
     def confirmar(self):
         self.ventanaConfigurar.destroy()
-     
-     
         
 class sudoku(tk.Frame):                  
     #----Método Constructor----#
@@ -212,16 +210,22 @@ class sudoku(tk.Frame):
         self.configuraciones = configurar.configuraciones()
     #----GUI juego----#
     def juego(self):
-        # CONFIGURACION DEL NIVEL DE JUEGO #
-        self.lblNivelJuego =    tk.Label(self.master,text='Nivel: Fácil',                   font=('System',16),width=50)
-        self.lblNivelJuego.place(x=100,y=50)
+        if self.configuraciones[0] == 1:
+            self.lblNivelJuego =    tk.Label(self.master,text='Nivel: Fácil',               font=('System',16),width=50)
+            self.lblNivelJuego.place(x=100,y=50)
+        elif self.configuraciones[0] == 2:
+            self.lblNivelJuego =    tk.Label(self.master,text='Nivel: Intermedio',          font=('System',16),width=50)
+            self.lblNivelJuego.place(x=100,y=50)
+        elif self.configuraciones[0] == 3:
+            self.lblNivelJuego =    tk.Label(self.master,text='Nivel: Díficil',             font=('System',16),width=50)
+            self.lblNivelJuego.place(x=100,y=50)
 
         self.lblNombre = tk.Label(self.master,text='Nombre del jugador',                    font=('System',12))
         self.lblNombre.place(x=15,y=75)
         self.txtNombre =        tk.Entry(self.master,width=31,                              font=('System',12))
         self.txtNombre.place(x=185,y=80)
         # BOTONES DE LA INTERACCIÓN CON EL JUEGO #
-        self.btnIniciarJuego =  tk.Button(self.master,text='Iniciar juego',     bg='red',   font=('System',10),command=self.inicioJuego)
+        self.btnIniciarJuego =  tk.Button(self.master,text='Iniciar juego',     bg='red',   font=('System',10),                     command=self.inicioJuego)
         self.btnIniciarJuego.place(x=5,y=550)
 
         # Estos botones se mantienen inhabilitados hasta que se inicie una partida
@@ -229,14 +233,14 @@ class sudoku(tk.Frame):
         self.btnBorrarJugada.place(x=265,y=600)
         self.btnBorrarJugada =  tk.Button(self.master,text='Deshacer jugada',   bg='blue',  font=('System',10),state=tk.DISABLED)
         self.btnBorrarJugada.place(x=265,y=550)
-        self.btnTerminarJuego = tk.Button(self.master,text='Terminar juego',    bg='orange',font=('System',10),state=tk.DISABLED)
+        self.btnTerminarJuego = tk.Button(self.master,text='Terminar juego',    bg='orange',font=('System',10),state=tk.DISABLED,   command=self.terminarJuego)
         self.btnTerminarJuego.place( x=125,y=550)
-        self.btnBorraJuego =    tk.Button(self.master,text=' Borrar juego ',    bg='violet',font=('System',10),state=tk.DISABLED)
+        self.btnBorraJuego =    tk.Button(self.master,text=' Borrar juego ',    bg='violet',font=('System',10),state=tk.DISABLED,   command=self.borrarJuego)
         self.btnBorraJuego.place(x=405,y=550)
-        self.btnTopLevel =      tk.Button(self.master,text='    Top 10    ',    bg='yellow',font=('System',10))
+        self.btnTopLevel =      tk.Button(self.master,text='    Top 10    ',    bg='yellow',font=('System',10),                     command=self.Top)
         self.btnTopLevel.place(x=535,y=550)
         
-        self.btnGuardarJuego =  tk.Button(self.master,text='Guardar juego',     bg='purple',font=('System',10),state=tk.DISABLED)
+        self.btnGuardarJuego =  tk.Button(self.master,text='Guardar juego',     bg='purple',font=('System',10),state=tk.DISABLED,   command=self.guardarJuego)
         self.btnGuardarJuego.place(x=405,y=600)
         self.btnCargarJuego =    tk.Button(self.master,text='Cargar juego',     bg='pink',  font=('System',10),state=tk.DISABLED)
         self.btnCargarJuego.place(x=535,y=600)
@@ -455,17 +459,17 @@ class sudoku(tk.Frame):
             self.hourEntry= tk.Entry(self.master, width=3, font=("System",18,""),
                             textvariable=self.hour)
             self.hourEntry.place(x=60,y=625)
-            self.hour.set(self.configuraciones[3])      #se asignan los valores que contenga si el usuario pone el timer en la configuración
+            self.hour.set(self.configuraciones[2])      #se asignan los valores que contenga si el usuario pone el timer en la configuración
             
             self.minuteEntry= tk.Entry(self.master, width=3, font=("System",18,""),
                             textvariable=self.minute)
             self.minuteEntry.place(x=110,y=625)
-            self.minute.set(self.configuraciones[4])    #se asignan los valores que contenga si el usuario pone el timer en la configuración
+            self.minute.set(self.configuraciones[3])    #se asignan los valores que contenga si el usuario pone el timer en la configuración
             
             self.secondEntry= tk.Entry(self.master, width=3, font=("System",18,""),
                             textvariable=self.second)
             self.secondEntry.place(x=160,y=625)
-            self.second.set(self.configuraciones[5])
+            self.second.set(self.configuraciones[4])
 
             
         self.btn1 = tk.Button(self.master,text='1',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(1),state=tk.DISABLED)
@@ -574,7 +578,7 @@ class sudoku(tk.Frame):
                 # cuando valor de temp = 0; luego aparece un cuadro de mensaje
                 # con el mensaje: "Tiempo Expirado" y consulta al usuario si desea continuar
                 if (self.temp == 0):
-                    respuesta= messagebox.askyesno("Tiempo Expirado", "¿Desea continuar el mismo juego?")
+                    respuesta= messagebox.askyesno("Tiempo expirado", "¿Desea continuar el mismo juego?")
                     if respuesta==True:
                         # Si  responde  SI  entonces  el timer pasa a ser reloj inicializado con el tiempo que se había establecido en 
                         # el  timer.  Por  ejemplo  si  el  timer  estaba  para  1  hora  y  30  minutos,  ahora  el 
@@ -615,8 +619,225 @@ class sudoku(tk.Frame):
     def terminarJuego(self):
         #       Si responde SI termina de inmediato el juego y se vuelve a mostrar otro juego como si estuviera entrando a la opción de Jugar.  
         #       Si responde NO sigue jugando con el mismo juego.
-        respuesta = messagebox.askyesno('TERMINAR JUEGO','¿ESTÁ SEGURO DE TERMINAR EL JUEGO?')
+        respuesta = messagebox.askyesno('Terminar juego','¿Está seguero de terminar el juego?')
         if respuesta == True:
+            self.juego()
+            return
+        else:
+            pass
+    #----Top 10----#
+    def Top(self):
+        
+        global proceso
+        global running
+
+        if running:
+            self.time.after_cancel(proceso)     
+            running = False                     
+        
+        self.top = tk.Toplevel()
+        self.top.geometry('500x800')
+        self.top.title('Top 10')
+        self.lblTitulo = tk.Label(self.top,text='Sudoku',fg='black',bg='gray',font=('Times New Roman',20)).pack(fill=tk.X)
+        
+        top10= open('sudoku2021top10.dat','rb')
+        tops = pickle.load(top10)
+        jugadores = str(self.txtNombre.get())
+        if self.configuraciones[0] == 1:
+            tops[0].append(jugadores)
+        elif self.configuraciones[0] == 2:
+            tops[1].append(jugadores)
+        elif self.configuraciones[0] == 3:
+            tops[2].append(jugadores)
+        top10.close()
+        
+        #----Encabezado top 10----#
+        self.lblDificil = tk.Label(self.top,text='Nivel díficil:',          font=('System'))
+        self.lblDificil.place(x=20,y=50)
+        self.nombre = tk.Label(self.top,text='Jugador',                     font=('System'))
+        self.nombre.place(x=220,y=50)
+        self.tiempo = tk.Label(self.top,text='Tiempo',                      font=('System'))
+        self.tiempo.place(x=380,y=50)
+
+        self.lblIntermedio = tk.Label(self.top,text='Nivel intermedio:',    font=('System'))
+        self.lblIntermedio.place(x=20,y=290)
+        self.nombre = tk.Label(self.top,text='Jugador',                     font=('System'))
+        self.nombre.place(x=220,y=290)
+        self.tiempo = tk.Label(self.top,text='Tiempo',                      font=('System'))
+        self.tiempo.place(x=380,y=290)
+
+        self.lblFacil = tk.Label(self.top,text='Nivel facil:',              font=('System'))
+        self.lblFacil.place(x=20,y=530)
+        self.nombre = tk.Label(self.top,text='Jugador',                     font=('System'))
+        self.nombre.place(x=220,y=530)
+        self.tiempo = tk.Label(self.top,text='Tiempo',                      font=('System'))
+        self.tiempo.place(x=380,y=530)
+        
+        #----Tops díficil----#
+        self.nombreD1 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreD1.place(x=195,y=70)
+        self.nombreD2 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreD2.place(x=195,y=90)
+        self.nombreD3 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreD3.place(x=195,y=110)
+        self.nombreD4 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreD4.place(x=195,y=130)
+        self.nombreD5 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreD5.place(x=195,y=150)
+        self.nombreD6 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreD6.place(x=195,y=170)
+        self.nombreD7 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreD7.place(x=195,y=190)
+        self.nombreD8 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreD8.place(x=195,y=210)
+        self.nombreD9 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreD9.place(x=195,y=230)
+        self.nombreD10 = tk.Label(self.top,text='', font=('System'))
+        self.nombreD10.place(x=195,y=250)
+
+        nombreD1 = tk.Label(self.top,text='1-',     font=('System'))
+        nombreD1.place(x=180,y=70)
+        nombreD2 = tk.Label(self.top,text='2-',     font=('System'))
+        nombreD2.place(x=180,y=90)
+        nombreD3 = tk.Label(self.top,text='3-',     font=('System'))
+        nombreD3.place(x=180,y=110)
+        nombreD4 = tk.Label(self.top,text='4-',     font=('System'))
+        nombreD4.place(x=180,y=130)
+        nombreD5 = tk.Label(self.top,text='5-',     font=('System'))
+        nombreD5.place(x=180,y=150)
+        nombreD6 = tk.Label(self.top,text='6-',     font=('System'))
+        nombreD6.place(x=180,y=170)
+        nombreD7 = tk.Label(self.top,text='7-',     font=('System'))
+        nombreD7.place(x=180,y=190)
+        nombreD8 = tk.Label(self.top,text='8-',     font=('System'))
+        nombreD8.place(x=180,y=210)
+        nombreD9 = tk.Label(self.top,text='9-',     font=('System'))
+        nombreD9.place(x=180,y=230)
+        nombreD10 = tk.Label(self.top,text='10-',   font=('System'))
+        nombreD10.place(x=177,y=250)
+
+        #----Tops intermedio----#
+        self.nombreI1 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreI1.place(x=195,y=310)
+        self.nombreI2 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreI2.place(x=195,y=330)
+        self.nombreI3 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreI3.place(x=195,y=350)
+        self.nombreI4 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreI4.place(x=195,y=370)
+        self.nombreI5 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreI5.place(x=195,y=390)
+        self.nombreI6 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreI6.place(x=195,y=410)
+        self.nombreI7 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreI7.place(x=195,y=430)
+        self.nombreI8 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreI8.place(x=195,y=450)
+        self.nombreI9 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreI9.place(x=195,y=470)
+        self.nombreI10 = tk.Label(self.top,text='', font=('System'))
+        self.nombreI10.place(x=195,y=490)
+
+        nombreI1 = tk.Label(self.top,text='1-',     font=('System'))
+        nombreI1.place(x=180,y=310)
+        nombreI2 = tk.Label(self.top,text='2-',     font=('System'))
+        nombreI2.place(x=180,y=330)
+        nombreI3 = tk.Label(self.top,text='3-',     font=('System'))
+        nombreI3.place(x=180,y=350)
+        nombreI4 = tk.Label(self.top,text='4-',     font=('System'))
+        nombreI4.place(x=180,y=370)
+        nombreI5 = tk.Label(self.top,text='5-',     font=('System'))
+        nombreI5.place(x=180,y=390)
+        nombreI6 = tk.Label(self.top,text='6-',     font=('System'))
+        nombreI6.place(x=180,y=410)
+        nombreI7 = tk.Label(self.top,text='7-',     font=('System'))
+        nombreI7.place(x=180,y=430)
+        nombreI8 = tk.Label(self.top,text='8-',     font=('System'))
+        nombreI8.place(x=180,y=450)
+        nombreI9 = tk.Label(self.top,text='9-',     font=('System'))
+        nombreI9.place(x=180,y=470)
+        nombreI10 = tk.Label(self.top,text='10-',   font=('System'))
+        nombreI10.place(x=177,y=490)
+
+        #----Tops fácil----#
+        self.nombreF1 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreF1.place(x=195,y=550)
+        self.nombreF2 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreF2.place(x=195,y=570)
+        self.nombreF3 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreF3.place(x=195,y=590)
+        self.nombreF4 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreF4.place(x=195,y=610)
+        self.nombreF5 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreF5.place(x=195,y=630)
+        self.nombreF6 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreF6.place(x=195,y=650)
+        self.nombreF7 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreF7.place(x=195,y=670)
+        self.nombreF8 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreF8.place(x=195,y=690)
+        self.nombreF9 = tk.Label(self.top,text='',  font=('System'))
+        self.nombreF9.place(x=195,y=710)
+        self.nombreF10 = tk.Label(self.top,text='', font=('System'))
+        self.nombreF10.place(x=195,y=730)
+
+        nombreF1 = tk.Label(self.top,text='1-',     font=('System'))
+        nombreF1.place(x=180,y=550)
+        nombreF2 = tk.Label(self.top,text='2-',     font=('System'))
+        nombreF2.place(x=180,y=570)
+        nombreF3 = tk.Label(self.top,text='3-',     font=('System'))
+        nombreF3.place(x=180,y=590)
+        nombreF4 = tk.Label(self.top,text='4-',     font=('System'))
+        nombreF4.place(x=180,y=610)
+        nombreF5 = tk.Label(self.top,text='5-',     font=('System'))
+        nombreF5.place(x=180,y=630)
+        nombreF6 = tk.Label(self.top,text='6-',     font=('System'))
+        nombreF6.place(x=180,y=650)
+        nombreF7 = tk.Label(self.top,text='7-',     font=('System'))
+        nombreF7.place(x=180,y=670)
+        nombreF8 = tk.Label(self.top,text='8-',     font=('System'))
+        nombreF8.place(x=180,y=690)
+        nombreF9 = tk.Label(self.top,text='9-',     font=('System'))
+        nombreF9.place(x=180,y=710)
+        nombreF10 = tk.Label(self.top,text='10-',   font=('System'))
+        nombreF10.place(x=177,y=730)
+
+        
+        self.TOP10 = [[self.nombreD1,self.nombreD2,self.nombreD3,self.nombreD4,self.nombreD5,self.nombreD6,self.nombreD7,self.nombreD8,self.nombreD9,self.nombreD10],\
+                      [self.nombreI1,self.nombreI2,self.nombreI3,self.nombreI4,self.nombreI5,self.nombreI6,self.nombreI7,self.nombreI8,self.nombreI9,self.nombreI10],\
+                      [self.nombreF1,self.nombreF2,self.nombreF3,self.nombreF4,self.nombreF5,self.nombreF6,self.nombreF7,self.nombreF8,self.nombreF9,self.nombreF10]]
+
+        for i,nombre in enumerate(tops[2]):
+            self.TOP10[0][i].configure(text=tops[2][i])
+        for i,nombre in enumerate(tops[1]):
+            self.TOP10[1][i].configure(text=tops[1][i])
+        for i,nombre in enumerate(tops[0]):
+            self.TOP10[2][i].configure(text=tops[0][i])
+        top10.close()
+
+        self.btnSalir = tk.Button(self.top,text='Salir',font=('System'),command=self.salirVentana)
+        self.btnSalir.place(x=20,y=710)
+    #----Salir top 10----#
+    def salirVentana(self):
+        global h,m,s
+        global running
+        global proceso
+        self.time.after(1000,self.inicioJuego)  #el tiempo se reanuda
+        self.top.destroy() 
+    #----Borra juego----#
+    def borrarJuego(self):
+        respuesta = messagebox.askyesno('Borrar juego','¿Está seguro de borra el juego?')
+        if respuesta == True:
+            mensaje= messagebox.showinfo(message="¿El juego se ha borrado exitosamente?", title="Borrar juego")
+            self.juego()
+            return
+        else:
+            pass
+    #----Ayuda----#
+    def guardarJuego(self):
+        respuesta= messagebox.askyesno("Guardar juego", "¿Realmente quiere guardar el juego?")
+        if respuesta == True:
+            mensaje= messagebox.showinfo(message="¿El juego se ha guardado exitosamente?", title="Guardar juego")
             self.juego()
             return
         else:
@@ -658,3 +879,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
+    
