@@ -6,7 +6,6 @@
 #Version de Python 3.9.6.
 
 #----MODULOS----#
-import os
 import time
 import pickle
 import random
@@ -139,50 +138,8 @@ class sudoku(tk.Frame):
         self.master.geometry('700x700')
         self.master.resizable(False,False) 
 
-        # PARTIDAS DE JUEGO #
-        partidas= open('sudoku2021partidas.dat','wb')
-        #graba las partidas de juego
-        pickle.dump({
-            "1":[
-            [3, 0, 8, 0, 1, 4, 0, 0, 9],
-            [0, 0, 2, 0, 6, 0, 1, 7, 4],
-            [7, 1, 0, 5, 9, 0, 8, 0, 0],
-            [0, 0, 0, 9, 0, 3, 4, 1, 7],
-            [5, 9, 0, 2, 4, 0, 3, 0, 0],
-            [4, 3, 7, 0, 0, 6, 0, 5, 0],
-            [1, 0, 5, 4, 0, 0, 0, 3, 8],
-            [0, 2, 0, 0, 3, 5, 7, 0, 1],
-            [0, 4, 3, 6, 0, 1, 0, 9, 0]
-            ],
-            "2":[
-            [0, 0, 0, 0, 0, 4, 2, 0, 0],
-            [2, 0, 0, 5, 1, 0, 0, 0, 0],
-            [7, 8, 0, 0, 0, 6, 4, 0, 0],
-            [5, 9, 0, 0, 0, 7, 0, 0, 0],
-            [0, 4, 0, 0, 0, 0, 0, 8, 0],
-            [0, 0, 0, 2, 0, 0, 0, 9, 5],
-            [0, 0, 7, 4, 0, 0, 0, 3, 2],
-            [0, 0, 0, 0, 3, 9, 0, 0, 1],
-            [0, 0, 3, 1, 0, 0, 0, 0, 0]
-            ],
-            "3":[
-            [0, 0, 5, 8, 0, 0, 0, 0, 2],
-            [8, 0, 0, 0, 0, 0, 4, 0, 0],
-            [0, 0, 9, 5, 0, 0, 0, 7, 8],
-            [7, 0, 0, 3, 0, 0, 1, 0, 0],
-            [0, 4, 0, 0, 0, 0, 0, 8, 0],
-            [0, 0, 6, 0, 0, 8, 0, 0, 3],
-            [6, 9, 0, 0, 0, 3, 7, 0, 0],
-            [0, 0, 2, 0, 0, 0, 0, 0, 9],
-            [1, 0, 0, 0, 0, 7, 2, 0, 0]
-            ]
-            },partidas)
-        partidas.close()
-
-        #graba una lista con tres listas diferenciando cada una por nivel de dificultad
-        top10 = open('sudoku2021top10.dat','wb')
-        pickle.dump([[],[],[]],top10)
-        top10.close()
+    
+        
 
         #llama al método que mantiene toda la interfaz principal del juego
         self.inicializar_gui()
@@ -441,6 +398,124 @@ class sudoku(tk.Frame):
                         (self.btnPos70,self.btnPos71,self.btnPos72,self.btnPos73,self.btnPos74,self.btnPos75,self.btnPos76,self.btnPos77,self.btnPos78),
                         (self.btnPos80,self.btnPos81,self.btnPos82,self.btnPos83,self.btnPos84,self.btnPos85,self.btnPos86,self.btnPos87,self.btnPos88,)]
         
+        partidas= open('sudoku2021partidas.dat','wb')
+        if self.configuraciones[5] == 1:
+            
+            pickle.dump({
+            "1":[
+            [3, 0, 8, 0, 1, 4, 0, 0, 9],
+            [0, 0, 2, 0, 6, 0, 1, 7, 4],
+            [7, 1, 0, 5, 9, 0, 8, 0, 0],
+            [0, 0, 0, 9, 0, 3, 4, 1, 7],
+            [5, 9, 0, 2, 4, 0, 3, 0, 0],
+            [4, 3, 7, 0, 0, 6, 0, 5, 0],
+            [1, 0, 5, 4, 0, 0, 0, 3, 8],
+            [0, 2, 0, 0, 3, 5, 7, 0, 1],
+            [0, 4, 3, 6, 0, 1, 0, 9, 0]
+            ],
+            "2":[
+            [0, 0, 0, 0, 0, 4, 2, 0, 0],
+            [2, 0, 0, 5, 1, 0, 0, 0, 0],
+            [7, 8, 0, 0, 0, 6, 4, 0, 0],
+            [5, 9, 0, 0, 0, 7, 0, 0, 0],
+            [0, 4, 0, 0, 0, 0, 0, 8, 0],
+            [0, 0, 0, 2, 0, 0, 0, 9, 5],
+            [0, 0, 7, 4, 0, 0, 0, 3, 2],
+            [0, 0, 0, 0, 3, 9, 0, 0, 1],
+            [0, 0, 3, 1, 0, 0, 0, 0, 0]
+            ],
+            "3":[
+            [0, 0, 5, 8, 0, 0, 0, 0, 2],
+            [8, 0, 0, 0, 0, 0, 4, 0, 0],
+            [0, 0, 9, 5, 0, 0, 0, 7, 8],
+            [7, 0, 0, 3, 0, 0, 1, 0, 0],
+            [0, 4, 0, 0, 0, 0, 0, 8, 0],
+            [0, 0, 6, 0, 0, 8, 0, 0, 3],
+            [6, 9, 0, 0, 0, 3, 7, 0, 0],
+            [0, 0, 2, 0, 0, 0, 0, 0, 9],
+            [1, 0, 0, 0, 0, 7, 2, 0, 0]
+            ]
+            },partidas)
+            
+        elif self.configuraciones[5] == 2:
+            pickle.dump({
+            "1":[
+            ["C", 0, "H", 0, "A", "D", 0, 0, "I"],
+            [0, 0, "B", 0, "F", 0, "A", "G", "D"],
+            ["G", "A", 0, "E", "I", 0, "H", 0, 0],
+            [0, 0, 0, "I", 0, "C", "D", "A", "G"],
+            ["E", "I", 0, "B", "D", 0, "C", 0, 0],
+            ["D", "C", "G", 0, 0, "F", 0, "E", 0],
+            ["A", 0, "E", "D", 0, 0, 0, "C", "H"],
+            [0, "B", 0, 0, "C", "E", "G", 0, "A"],
+            [0, "D", "C", "F", 0, "A", 0, "I", 0]
+            ],
+            "2":[
+            [0, 0, 0, 0, 0, "D", "B", 0, 0],
+            ["B", 0, 0, "E", "A", 0, 0, 0, 0],
+            ["G", "H", 0, 0, 0, "F", "D", 0, 0],
+            ["E", "I", 0, 0, 0, "G", 0, 0, 0],
+            [0, "D", 0, 0, 0, 0, 0, "H", 0],
+            [0, 0, 0, "B", 0, 0, 0, "I", "E"],
+            [0, 0, "G", "D", 0, 0, 0, "C", "B"],
+            [0, 0, 0, 0, "C", "I", 0, 0, "A"],
+            [0, 0, "C", "A", 0, 0, 0, 0, 0]
+            ],
+            "3":[
+            [0, 0, "E", "H", 0, 0, 0, 0, "B"],
+            ["H", 0, 0, 0, 0, 0, "D", 0, 0],
+            [0, 0, "I", "E", 0, 0, 0, "G", "H"],
+            ["G", 0, 0, "C", 0, 0, "A", 0, 0],
+            [0, "D", 0, 0, 0, 0, 0, "H", 0],
+            [0, 0, "F", 0, 0, "H", 0, 0, "C"],
+            ["F", "I", 0, 0, 0, "C", "G", 0, 0],
+            [0, 0, "B", 0, 0, 0, 0, 0, "I"],
+            ["A", 0, 0, 0, 0, "G", "B", 0, 0]
+            ],},partidas)
+        
+        elif self.configuraciones[5] == 3:
+            pickle.dump({
+            "1":[
+            ["-", 0, "$", 0, "/", "+", 0, 0, "&"],
+            [0, 0, "*", 0, "#", 0, "/", "@", "+"],
+            ["@", "/", 0, ".", "&", 0, "$", 0, 0],
+            [0, 0, 0, "&", 0, "-", "+", "/", "@"],
+            [".", "&", 0, "*", "+", 0, "-", 0, 0],
+            ["+", "-", "@", 0, 0, "#", 0, ".", 0],
+            ["/", 0, ".", "+", 0, 0, 0, "-", "$"],
+            [0, "*", 0, 0, "-", ".", "@", 0, "/"],
+            [0, "+", "-", "#", 0, "/", 0, "&", 0]
+            ],
+            "2":[
+            [0, 0, 0, 0, 0, "+", "*", 0, 0],
+            ["*", 0, 0, ".", "/", 0, 0, 0, 0],
+            ["@", "$", 0, 0, 0, "#", "+", 0, 0],
+            [".", "&", 0, 0, 0, "@", 0, 0, 0],
+            [0, "+", 0, 0, 0, 0, 0, "$", 0],
+            [0, 0, 0, "*", 0, 0, 0, "&", "."],
+            [0, 0, "@", "+", 0, 0, 0, "-", "*"],
+            [0, 0, 0, 0, "-", "&", 0, 0, "/"],
+            [0, 0, "-", "/", 0, 0, 0, 0, 0]
+            ],
+            "3":[
+            [0, 0, ".", "$", 0, 0, 0, 0, "*"],
+            ["$", 0, 0, 0, 0, 0, "+", 0, 0],
+            [0, 0, "&", ".", 0, 0, 0, "@", "$"],
+            ["@", 0, 0, "-", 0, 0, "/", 0, 0],
+            [0, "+", 0, 0, 0, 0, 0, "$", 0],
+            [0, 0, "#", 0, 0, "$", 0, 0, "-"],
+            ["#", "&", 0, 0, 0, "-", "@", 0, 0],
+            [0, 0, "*", 0, 0, 0, 0, 0, "&"],
+            ["/", 0, 0, 0, 0, "@", "*", 0, 0]
+            ],},partidas)
+            
+        partidas.close()
+
+        #graba una lista con tres listas diferenciando cada una por nivel de dificultad
+        top10 = open('sudoku2021top10.dat','wb')
+        pickle.dump([[],[],[]],top10)
+        top10.close()
+        
         if self.configuraciones[0] == 1:
             partidas = open('sudoku2021partidas.dat','rb')
             x = pickle.load(partidas)
@@ -533,28 +608,76 @@ class sudoku(tk.Frame):
             self.secondEntry.place(x=160,y=625)
             self.second.set(self.configuraciones[4])
 
-            
-        self.btn1 = tk.Button(self.master,text='1',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(1),state=tk.DISABLED)
-        self.btn1.place(x=500,y=120)
-        self.btn2= tk.Button(self.master,text='2',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(2),state=tk.DISABLED)
-        self.btn2.place(x=560,y=120)
-        self.btn3 = tk.Button(self.master,text='3',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(3),state=tk.DISABLED)
-        self.btn3.place(x=620,y=120)
-        self.btn4 = tk.Button(self.master,text='4',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(4),state=tk.DISABLED)
-        self.btn4.place(x=500,y=200)
-        self.btn5 = tk.Button(self.master,text='5',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(5),state=tk.DISABLED)
-        self.btn5.place(x=560,y=200)
-        self.btn6 = tk.Button(self.master,text='6',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(6),state=tk.DISABLED)
-        self.btn6.place(x=620,y=200)
-        self.btn7 = tk.Button(self.master,text='7',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(7),state=tk.DISABLED)
-        self.btn7.place(x=500,y=280)
-        self.btn8 = tk.Button(self.master,text='8',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(8),state=tk.DISABLED)
-        self.btn8.place(x=560,y=280)
-        self.btn9 = tk.Button(self.master,text='9',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(9),state=tk.DISABLED)
-        self.btn9.place(x=620,y=280)
+        if self.configuraciones[5] == 1:
+               
+            self.btn1 = tk.Button(self.master,text='1',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(1),state=tk.DISABLED)
+            self.btn1.place(x=500,y=120)
+            self.btn2= tk.Button(self.master,text='2',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(2),state=tk.DISABLED)
+            self.btn2.place(x=560,y=120)
+            self.btn3 = tk.Button(self.master,text='3',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(3),state=tk.DISABLED)
+            self.btn3.place(x=620,y=120)
+            self.btn4 = tk.Button(self.master,text='4',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(4),state=tk.DISABLED)
+            self.btn4.place(x=500,y=200)
+            self.btn5 = tk.Button(self.master,text='5',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(5),state=tk.DISABLED)
+            self.btn5.place(x=560,y=200)
+            self.btn6 = tk.Button(self.master,text='6',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(6),state=tk.DISABLED)
+            self.btn6.place(x=620,y=200)
+            self.btn7 = tk.Button(self.master,text='7',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(7),state=tk.DISABLED)
+            self.btn7.place(x=500,y=280)
+            self.btn8 = tk.Button(self.master,text='8',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(8),state=tk.DISABLED)
+            self.btn8.place(x=560,y=280)
+            self.btn9 = tk.Button(self.master,text='9',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(9),state=tk.DISABLED)
+            self.btn9.place(x=620,y=280)
 
-        # LISTA CON LOS BOTONES DEL JUEGO #
-        self.botonesJuego = [self.btn1,self.btn2,self.btn3,self.btn4,self.btn5,self.btn6,self.btn7,self.btn8,self.btn9]
+            # LISTA CON LOS BOTONES DEL JUEGO #
+            self.botonesJuego = [self.btn1,self.btn2,self.btn3,self.btn4,self.btn5,self.btn6,self.btn7,self.btn8,self.btn9]
+            
+        elif self.configuraciones[5] == 2:
+            
+            self.btn1 = tk.Button(self.master,text='A',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("A"),state=tk.DISABLED)
+            self.btn1.place(x=500,y=120)
+            self.btn2= tk.Button(self.master,text='B',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("B"),state=tk.DISABLED)
+            self.btn2.place(x=560,y=120)
+            self.btn3 = tk.Button(self.master,text='C',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("C"),state=tk.DISABLED)
+            self.btn3.place(x=620,y=120)
+            self.btn4 = tk.Button(self.master,text='D',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("D"),state=tk.DISABLED)
+            self.btn4.place(x=500,y=200)
+            self.btn5 = tk.Button(self.master,text='E',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("E"),state=tk.DISABLED)
+            self.btn5.place(x=560,y=200)
+            self.btn6 = tk.Button(self.master,text='F',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("F"),state=tk.DISABLED)
+            self.btn6.place(x=620,y=200)
+            self.btn7 = tk.Button(self.master,text='G',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("G"),state=tk.DISABLED)
+            self.btn7.place(x=500,y=280)
+            self.btn8 = tk.Button(self.master,text='H',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("H"),state=tk.DISABLED)
+            self.btn8.place(x=560,y=280)
+            self.btn9 = tk.Button(self.master,text='I',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("I"),state=tk.DISABLED)
+            self.btn9.place(x=620,y=280)
+
+            # LISTA CON LOS BOTONES DEL JUEGO #
+            self.botonesJuego = [self.btn1,self.btn2,self.btn3,self.btn4,self.btn5,self.btn6,self.btn7,self.btn8,self.btn9]
+            
+        elif self.configuraciones[5] == 3:
+            self.btn1 = tk.Button(self.master,text='/',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("/"),state=tk.DISABLED)
+            self.btn1.place(x=500,y=120)
+            self.btn2= tk.Button(self.master,text='*',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("*"),state=tk.DISABLED)
+            self.btn2.place(x=560,y=120)
+            self.btn3 = tk.Button(self.master,text='-',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("-"),state=tk.DISABLED)
+            self.btn3.place(x=620,y=120)
+            self.btn4 = tk.Button(self.master,text='+',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("+"),state=tk.DISABLED)
+            self.btn4.place(x=500,y=200)
+            self.btn5 = tk.Button(self.master,text='.',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("."),state=tk.DISABLED)
+            self.btn5.place(x=560,y=200)
+            self.btn6 = tk.Button(self.master,text='#',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("#"),state=tk.DISABLED)
+            self.btn6.place(x=620,y=200)
+            self.btn7 = tk.Button(self.master,text='@',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("@"),state=tk.DISABLED)
+            self.btn7.place(x=500,y=280)
+            self.btn8 = tk.Button(self.master,text='$',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("$"),state=tk.DISABLED)
+            self.btn8.place(x=560,y=280)
+            self.btn9 = tk.Button(self.master,text='&',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("&"),state=tk.DISABLED)
+            self.btn9.place(x=620,y=280)
+
+            # LISTA CON LOS BOTONES DEL JUEGO #
+            self.botonesJuego = [self.btn1,self.btn2,self.btn3,self.btn4,self.btn5,self.btn6,self.btn7,self.btn8,self.btn9]
     #----Inicializar juego----#
     def inicioJuego(self):
         # Variables globales
@@ -580,7 +703,7 @@ class sudoku(tk.Frame):
             self.juego()
             return 
         else:
-            self.btnIniciarJuego(state=tk.DISABLED)
+            
             configuracion = open('sudoku2021configuracion.dat','rb')
             x = pickle.load(configuracion)
             top10 = open('sudoku2021top10.dat','rb')
@@ -674,7 +797,7 @@ class sudoku(tk.Frame):
     #----Almacena número----#      
     def botones(self,num):          
         self.numero = str(num)      
-    #----Posciona número----#
+    #----Posciona números----#
     def cuadricula(self,posicion):                  
         self.posicion = posicion                    
         self.posicion.configure(text=self.numero) 
@@ -897,7 +1020,7 @@ class sudoku(tk.Frame):
             return
         else:
             pass
-    #----Ayuda----#
+    #----guardar juego----#
     def guardarJuego(self):
         respuesta= messagebox.askyesno("Guardar juego", "¿Realmente quiere guardar el juego?")
         if respuesta == True:
@@ -908,9 +1031,10 @@ class sudoku(tk.Frame):
             pass
     #----Ayuda----#
     def ayuda(self):
-        # Esta opción la usaremos para que el usuario pueda ver el Manual de Usuario directamente en la computadora (despliega el pdf  respectivo). 
-        path = 'manual_de_usuario_sudoku.pdf'
-        os.system(path)
+        #Abre pdf de ayuda
+        import subprocess
+        path = "manual_de_usuario_sudoku.pdf"
+        subprocess.Popen([path], shell=True)
     #----Acerca de----#
     def acercaDe(self):
         self.ventanaInfo = tk.Tk()
