@@ -4,11 +4,11 @@
 #Fecha de creación 18 de noviembre del 2021 a las 08:10 am
 #Ultima fecha de actualizacion 30 de noviembre del 2021 a las x:xx pm
 #Version de Python 3.9.6.
+#Link del repositorio en github https://github.com/HELBERTH-C-J/Sudoku.py
 
 #----MODULOS----#
 import time
 import pickle
-import random
 import tkinter as tk
 from tkinter import messagebox
 
@@ -41,6 +41,8 @@ class Configuracion:
         self.check3 = tk.Radiobutton(self.ventanaConfigurar,text="Díficil",font=('System',12), value = 3, variable=self.nivelJuego \
                                                             ,command=self.configuraciones \
                                                             ).place(x=55,y=105)
+        
+        
 
         self.relojConfig = tk.IntVar()     
         config = open('sudoku2021configuracion.dat','rb')
@@ -65,7 +67,7 @@ class Configuracion:
         config = open('sudoku2021configuracion.dat','rb')    
         configuracion = pickle.load(config)                     
 
-        self.elementos.set(str(configuracion[0])) 
+        self.elementos.set(str(configuracion[2])) 
         config.close()      
 
         self.lblJuego = tk.Label(self.ventanaConfigurar,text='Elementos:',font=('System',12)).place(x=10,y=235)
@@ -124,23 +126,18 @@ class Configuracion:
         pickle.dump((nivelJuego,relojConfig,hora,minuto,segundo,elementos),self.configuracion)#se graban las variables cada vez que se ingrese a la ventana Configuración
         self.configuracion.close()
         return (nivelJuego,relojConfig,hora,minuto,segundo,elementos)     #retorna las variables
-    
     #----Confirmar configuraciones----#
     def confirmar(self):
         self.ventanaConfigurar.destroy()
-        
 class sudoku(tk.Frame):                  
-    #----Método Constructor----#
+    #----Método cons----#
     def __init__(self,master=None):
         super().__init__(master)
         self.master =  master   #esta variable almacena la ventana principal
         self.master.title('Sudoku')
         self.master.geometry('700x700')
         self.master.resizable(False,False) 
-
-    
         
-
         #llama al método que mantiene toda la interfaz principal del juego
         self.inicializar_gui()
 
@@ -149,7 +146,10 @@ class sudoku(tk.Frame):
         self.nivelJuego.set('1')
         self.relojConfig = tk.IntVar()
         self.relojConfig.set('1')
-        self.configuraciones = (self.nivelJuego.get(),self.relojConfig.get())    #se crea una lista que guarde la configuración por default 
+        self.elementos = tk.IntVar()
+        self.elementos.set('1')
+        self.configuraciones = (self.nivelJuego.get(),self.relojConfig.get(),self.elementos.get())    #se crea una lista que guarde la configuración por default 
+        
 
         #TEMPORIZADOR VARIABLES
         self.hour=tk.StringVar()
@@ -399,8 +399,7 @@ class sudoku(tk.Frame):
                         (self.btnPos80,self.btnPos81,self.btnPos82,self.btnPos83,self.btnPos84,self.btnPos85,self.btnPos86,self.btnPos87,self.btnPos88,)]
         
         partidas= open('sudoku2021partidas.dat','wb')
-        if self.configuraciones[5] == 1:
-            
+        if self.configuraciones[2] == 1 or self.configuraciones[5] == 1:
             pickle.dump({
             "1":[
             [3, 0, 8, 0, 1, 4, 0, 0, 9],
@@ -437,7 +436,7 @@ class sudoku(tk.Frame):
             ]
             },partidas)
             
-        elif self.configuraciones[5] == 2:
+        elif self.configuraciones[2] == 2 or self.configuraciones[5] == 2:
             pickle.dump({
             "1":[
             ["C", 0, "H", 0, "A", "D", 0, 0, "I"],
@@ -473,7 +472,7 @@ class sudoku(tk.Frame):
             ["A", 0, 0, 0, 0, "G", "B", 0, 0]
             ],},partidas)
         
-        elif self.configuraciones[5] == 3:
+        elif self.configuraciones[2] == 3 or self.configuraciones[5] == 3:
             pickle.dump({
             "1":[
             ["-", 0, "$", 0, "/", "+", 0, 0, "&"],
@@ -516,7 +515,8 @@ class sudoku(tk.Frame):
         pickle.dump([[],[],[]],top10)
         top10.close()
         
-        if self.configuraciones[0] == 1:
+        #Se asignan las los valores para las cuadriculas segun la configuración 
+        if self.configuraciones[0] == 1 or self.configuraciones[2] == 3:
             partidas = open('sudoku2021partidas.dat','rb')
             x = pickle.load(partidas)
             for i,filas in enumerate(self.casillas):
@@ -608,7 +608,7 @@ class sudoku(tk.Frame):
             self.secondEntry.place(x=160,y=625)
             self.second.set(self.configuraciones[4])
 
-        if self.configuraciones[5] == 1:
+        if self.configuraciones[2] == 1 or self.configuraciones[5] == 1 :
                
             self.btn1 = tk.Button(self.master,text='1',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones(1),state=tk.DISABLED)
             self.btn1.place(x=500,y=120)
@@ -632,7 +632,7 @@ class sudoku(tk.Frame):
             # LISTA CON LOS BOTONES DEL JUEGO #
             self.botonesJuego = [self.btn1,self.btn2,self.btn3,self.btn4,self.btn5,self.btn6,self.btn7,self.btn8,self.btn9]
             
-        elif self.configuraciones[5] == 2:
+        elif self.configuraciones[2] == 2 or self.configuraciones[5] == 2:
             
             self.btn1 = tk.Button(self.master,text='A',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("A"),state=tk.DISABLED)
             self.btn1.place(x=500,y=120)
@@ -656,7 +656,7 @@ class sudoku(tk.Frame):
             # LISTA CON LOS BOTONES DEL JUEGO #
             self.botonesJuego = [self.btn1,self.btn2,self.btn3,self.btn4,self.btn5,self.btn6,self.btn7,self.btn8,self.btn9]
             
-        elif self.configuraciones[5] == 3:
+        elif self.configuraciones[2] == 3 or self.configuraciones[5] == 2:
             self.btn1 = tk.Button(self.master,text='/',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("/"),state=tk.DISABLED)
             self.btn1.place(x=500,y=120)
             self.btn2= tk.Button(self.master,text='*',font=('System',12),activebackground='green',height=2,width=4,command=lambda:self.botones("*"),state=tk.DISABLED)
@@ -1065,8 +1065,5 @@ def main():
     app = tk.Tk()
     ventanaPrincipal = sudoku(app)
     app.mainloop()
-
 if __name__ == "__main__":
     main()
-    
-    
